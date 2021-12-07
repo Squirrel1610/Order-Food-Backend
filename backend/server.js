@@ -1,8 +1,11 @@
 const express = require("express");
 const app = express();
 const port = 5000;
+
 const adminRouter = require("./routers/adminRouter.js");
 const customerRouter = require("./routers/customerRouter.js");
+const categoryRouter = require("./routers/categoryRouter.js");
+
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -30,6 +33,9 @@ app.use("/admin/", adminRouter);
 
 //cổng customer
 app.use("/customer/", customerRouter);
+
+//cổng category
+app.use("/category/", categoryRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
