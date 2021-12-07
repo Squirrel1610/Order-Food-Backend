@@ -1,0 +1,2 @@
+npm i bcrypt cloudinary cookie-parser cors dotenv express express-fileupload jsonwebtoken mysql body-parser knex
+npm i --save-dev nodemon
