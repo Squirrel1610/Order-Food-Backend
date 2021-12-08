@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2021 at 05:05 AM
+-- Generation Time: Dec 08, 2021 at 05:31 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -20,8 +20,22 @@ SET time_zone = "+00:00";
 --
 -- Database: `order_food`
 --
-CREATE DATABASE IF NOT EXISTS `order_food` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `order_food`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chitietgiohang`
+--
+
+CREATE TABLE `chitietgiohang` (
+  `id` int(11) NOT NULL,
+  `id_giohang` int(11) NOT NULL,
+  `id_sp` int(11) NOT NULL,
+  `soluong` int(11) NOT NULL,
+  `tong_gia` int(11) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -30,6 +44,7 @@ USE `order_food`;
 --
 
 CREATE TABLE `chitiethoadon` (
+  `id` int(11) NOT NULL,
   `id_hd` int(11) NOT NULL,
   `soluong` int(11) NOT NULL,
   `tong_gia` int(11) NOT NULL,
@@ -67,6 +82,19 @@ INSERT INTO `danhmuc` (`id`, `tendm`, `createdAt`, `updatedAt`, `deleted_fg`) VA
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `giohang`
+--
+
+CREATE TABLE `giohang` (
+  `id` int(11) NOT NULL,
+  `id_nd` int(11) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `hinhthucthanhtoan`
 --
 
@@ -89,6 +117,7 @@ CREATE TABLE `hoadon` (
   `id` int(11) NOT NULL,
   `id_nd` int(11) NOT NULL,
   `ngaydathang` datetime NOT NULL,
+  `tinhtrangHD` varchar(50) NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   `deleted_fg` tinyint(1) NOT NULL DEFAULT 0,
@@ -207,10 +236,18 @@ INSERT INTO `sanpham` (`id`, `tensp`, `public_id`, `url`, `size`, `chitiet`, `gi
 --
 
 --
+-- Indexes for table `chitietgiohang`
+--
+ALTER TABLE `chitietgiohang`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_id_giohang` (`id_giohang`),
+  ADD KEY `fk_id_sp` (`id_sp`);
+
+--
 -- Indexes for table `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
-  ADD PRIMARY KEY (`id_hd`,`id_sp`) USING BTREE,
+  ADD PRIMARY KEY (`id`),
   ADD KEY `mahd` (`id_hd`),
   ADD KEY `idsp` (`id_sp`) USING BTREE;
 
@@ -219,6 +256,13 @@ ALTER TABLE `chitiethoadon`
 --
 ALTER TABLE `danhmuc`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `giohang`
+--
+ALTER TABLE `giohang`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_id_nd` (`id_nd`);
 
 --
 -- Indexes for table `hinhthucthanhtoan`
@@ -272,10 +316,28 @@ ALTER TABLE `sanpham`
 --
 
 --
+-- AUTO_INCREMENT for table `chitietgiohang`
+--
+ALTER TABLE `chitietgiohang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `chitiethoadon`
+--
+ALTER TABLE `chitiethoadon`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `danhmuc`
 --
 ALTER TABLE `danhmuc`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `giohang`
+--
+ALTER TABLE `giohang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `hinhthucthanhtoan`
@@ -324,11 +386,24 @@ ALTER TABLE `sanpham`
 --
 
 --
+-- Constraints for table `chitietgiohang`
+--
+ALTER TABLE `chitietgiohang`
+  ADD CONSTRAINT `fk_id_giohang` FOREIGN KEY (`id_giohang`) REFERENCES `giohang` (`id`),
+  ADD CONSTRAINT `fk_id_sp` FOREIGN KEY (`id_sp`) REFERENCES `sanpham` (`id`);
+
+--
 -- Constraints for table `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
   ADD CONSTRAINT `chitiethoadon_ibfk_1` FOREIGN KEY (`id_hd`) REFERENCES `hoadon` (`id`),
   ADD CONSTRAINT `chitiethoadon_ibfk_2` FOREIGN KEY (`id_sp`) REFERENCES `sanpham` (`id`);
+
+--
+-- Constraints for table `giohang`
+--
+ALTER TABLE `giohang`
+  ADD CONSTRAINT `fk_id_nd` FOREIGN KEY (`id_nd`) REFERENCES `nguoidung` (`id`);
 
 --
 -- Constraints for table `hoadon`
