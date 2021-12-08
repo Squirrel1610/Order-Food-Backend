@@ -233,4 +233,31 @@ module.exports = {
     let users = await knex("nguoidung").select("*");
     return users;
   },
+
+  //chỉnh sửa thông tin cho tất cả tài khoản (admin)
+  async updateAllUser(id, user) {
+    await knex("nguoidung").update(user).where("id", id);
+    return {
+      status: 200,
+      message: `Update user with id : ${id} successfully`,
+    };
+  },
+
+  async changePassword(id, user) {
+    let result = await knex("nguoidung").update(user).where("id", id);
+    return {
+      status: 200,
+      message: "Change password successfully",
+      result: result,
+    };
+  },
+
+  //chỉnh sửa tài khoản đang đăng nhập (customer )
+  async updateProfile(id, user) {
+    await knex("nguoidung").update(user).where("id", id);
+    return {
+      status: 200,
+      message: "Update successfully",
+    };
+  },
 };

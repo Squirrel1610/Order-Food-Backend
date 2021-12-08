@@ -192,4 +192,102 @@ module.exports = {
         });
       });
   },
+
+  //chỉnh sửa toàn bộ tài khoản (admin)
+  updateAllUser(req, res) {
+    const { username, hoten, password, ngaysinh, gioitinh, dienthoai, admin } =
+      req.body;
+
+    const id = req.params.id;
+    const user = {
+      username: username,
+      hoten: hoten,
+      ngaysinh: new Date(ngaysinh),
+      gioitinh: gioitinh,
+      dienthoai: dienthoai,
+      admin: admin,
+      updatedAt: new Date(),
+    };
+
+    userModel
+      .updateAllUser(id, user)
+      .then((result) => {
+        return res.status(200).json(result);
+      })
+      .catch((err) => {
+        return res.status(400).json({
+          status: 400,
+          message: "Failed to update user",
+          data: err,
+        });
+      });
+  },
+
+  //Thay đổi mật khẩu tài khoản đang đăng nhập
+  changePassword(req, res) {
+    const id = req.userData.id;
+
+    const { password, confirmPassword } = req.body;
+
+    if (password.length < 6)
+      return res.status(400).json({
+        status: 400,
+        message: "Password is at least 6 characters long.",
+      });
+
+    if (confirmPassword !== password) {
+      return res.status(400).json({
+        status: 400,
+        message: "Password and confirm password does not match!",
+      });
+    }
+
+    const salt = bcrypt.genSaltSync();
+    const hashPassword = bcrypt.hashSync(password, salt);
+
+    const user = {
+      password: hashPassword,
+      updatedAt: new Date(),
+    };
+
+    userModel
+      .changePassword(id, user)
+      .then((result) => {
+        return res.status(200).json(result);
+      })
+      .catch((err) => {
+        return res.status(400).json({
+          status: 400,
+          message: "Failed to change password",
+        });
+      });
+  },
+
+  //Chỉnh sửa thông tin tài khoản đang đăng nhập (customer)
+  updateProfile(req, res) {
+    const userId = req.userData.id;
+
+    const { hoten, username, ngaysinh, gioitinh, dienthoai } = req.body;
+
+    const user = {
+      hoten: hoten,
+      username: username,
+      ngaysinh: new Date(ngaysinh),
+      gioitinh: gioitinh,
+      dienthoai: dienthoai,
+      updatedAt: new Date(),
+    };
+
+    userModel
+      .updateProfile(userId, user)
+      .then((result) => {
+        return res.status(200).json(result);
+      })
+      .catch((err) => {
+        return res.status(400).json({
+          status: 400,
+          message: "Failed to update profile",
+        });
+      });
+  },
 };

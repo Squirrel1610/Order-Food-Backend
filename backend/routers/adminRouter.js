@@ -21,4 +21,18 @@ router.get("/refreshToken", userController.refreshToken);
 //Logout
 router.delete("/logout", userController.logout);
 
+//chỉnh sửa thông tin tất cả tài khoản (admin)
+router.patch(
+  "/users/:id",
+  checkAuth.checkAuthAdmin,
+  userController.updateAllUser
+);
+
+//đổi mật khẩu cho tài khoản đang đăng nhập (admin)
+router.patch(
+  "/changePassword",
+  checkAuth.checkAuthAdmin,
+  userController.changePassword
+);
+
 module.exports = router;
