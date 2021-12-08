@@ -21,13 +21,14 @@ module.exports = {
   },
 
   insertProduct(req, res) {
-    const { tensp, chitiet, size, gia, hinhanh, id_dm } = req.body;
+    const { tensp, chitiet, size, gia, public_id, url, id_dm } = req.body;
     const product = {
       tensp: tensp,
       chitiet: chitiet,
       size: size,
       gia: gia,
-      hinhanh: hinhanh,
+      public_id: public_id,
+      url: url,
       createdAt: new Date(),
       updatedAt: new Date(),
       id_dm: id_dm,
@@ -52,13 +53,14 @@ module.exports = {
 
   updateProduct(req, res) {
     const id = req.params.id;
-    const { tensp, chitiet, size, gia, hinhanh, id_dm } = req.body;
+    const { tensp, chitiet, size, gia, public_id, url, id_dm } = req.body;
     const product = {
       tensp: tensp,
       chitiet: chitiet,
       size: size,
       gia: gia,
-      hinhanh: hinhanh,
+      public_id: public_id,
+      url: url,
       updatedAt: new Date(),
       id_dm: id_dm,
     };

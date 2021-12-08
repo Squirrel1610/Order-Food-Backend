@@ -6,11 +6,19 @@ const adminRouter = require("./routers/adminRouter.js");
 const customerRouter = require("./routers/customerRouter.js");
 const categoryRouter = require("./routers/categoryRouter.js");
 const productRouter = require("./routers/productRouter.js");
+const upload = require("./routers/upload.js");
 
+const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 require("dotenv").config();
+
+app.use(
+  fileUpload({
+    useTempFiles: true,
+  })
+);
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -40,6 +48,9 @@ app.use("/category/", categoryRouter);
 
 //cổng product
 app.use("/product/", productRouter);
+
+//cổng cloudinary
+app.use("/cloud/", upload);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

@@ -1,25 +1,23 @@
-//sua cuoi cung
-
-
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const cloudinary = require("cloudinary");
-const auth = require("../middleware/auth");
-const authAdmin = require("../middleware/authAdmin");
+const checkAuth = require("../middleware/checkAuth.js");
 const fs = require("fs");
+
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUD_API_KEY,
-  api_secret: process.env.CLOUD_API_SECRET,
+  cloud_name: "order-food",
+  api_key: "887187822811327",
+  api_secret: "weQfCg8Ix_Yo6kjddazodw-1h2A",
 });
 // Upload image only admin can use
-router.post("/upload", auth, authAdmin, (req, res) => {
+router.post("/upload", checkAuth.checkAuthAdmin, (req, res) => {
   try {
     console.log(req.files);
     if (!req.files || Object.keys(req.files).length === 0)
       return res.status(400).json({ msg: "No files were uploaded." });
 
     const file = req.files.file;
+
     if (file.size > 1024 * 1024) {
       removeTmp(file.tempFilePath);
       return res.status(400).json({ msg: "Size too large" });
@@ -32,7 +30,7 @@ router.post("/upload", auth, authAdmin, (req, res) => {
 
     cloudinary.v2.uploader.upload(
       file.tempFilePath,
-      { folder: "test" },
+      { folder: "products" },
       async (err, result) => {
         if (err) throw err;
 
@@ -42,11 +40,12 @@ router.post("/upload", auth, authAdmin, (req, res) => {
       }
     );
   } catch (err) {
-    return res.status(500).json({ msg: err.message });
+    return res.status(500).json({ msg: "Can't upload image" });
   }
 });
-// Delete image only admin can use
-router.post("/destroy", auth, authAdmin, (req, res) => {
+
+//Delete image only admin can use
+router.post("/destroy", checkAuth.checkAuthAdmin, (req, res) => {
   try {
     const { public_id } = req.body;
     if (!public_id) return res.status(400).json({ msg: "No images Selected" });
