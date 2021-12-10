@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2021 at 05:31 AM
+-- Generation Time: Dec 10, 2021 at 10:55 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -24,28 +24,13 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chitietgiohang`
---
-
-CREATE TABLE `chitietgiohang` (
-  `id` int(11) NOT NULL,
-  `id_giohang` int(11) NOT NULL,
-  `id_sp` int(11) NOT NULL,
-  `soluong` int(11) NOT NULL,
-  `tong_gia` int(11) NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `chitiethoadon`
 --
 
 CREATE TABLE `chitiethoadon` (
   `id` int(11) NOT NULL,
   `id_hd` int(11) NOT NULL,
+  `don_gia` int(11) NOT NULL,
   `soluong` int(11) NOT NULL,
   `tong_gia` int(11) NOT NULL,
   `id_sp` int(11) NOT NULL,
@@ -88,9 +73,20 @@ INSERT INTO `danhmuc` (`id`, `tendm`, `createdAt`, `updatedAt`, `deleted_fg`) VA
 CREATE TABLE `giohang` (
   `id` int(11) NOT NULL,
   `id_nd` int(11) NOT NULL,
+  `id_sp` int(11) NOT NULL,
+  `don_gia` int(11) NOT NULL,
+  `soluong` int(11) NOT NULL,
+  `tong_gia` int(11) NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `giohang`
+--
+
+INSERT INTO `giohang` (`id`, `id_nd`, `id_sp`, `don_gia`, `soluong`, `tong_gia`, `createdAt`, `updatedAt`) VALUES
+(8, 14, 148, 129000, 1, 129000, '2021-12-10 16:53:13', '2021-12-10 16:53:13');
 
 -- --------------------------------------------------------
 
@@ -180,10 +176,11 @@ CREATE TABLE `nguoidung` (
 --
 
 INSERT INTO `nguoidung` (`id`, `hoten`, `username`, `password`, `refresh_token`, `ngaysinh`, `gioitinh`, `email`, `dienthoai`, `admin`, `createdAt`, `updatedAt`, `deleted_fg`) VALUES
-(14, 'Nguyễn Hoàng Việt', 'viet', '$2b$10$ZIYrGNHnhja31Stai7PVcePzalv8ycpiFmWCGgDqWue.Ae4Xsfzk.', '', '2000-09-12', 1, 'viet@gmail.com', '0123456789', 0, '2021-12-07 15:22:20', '2021-12-07 15:22:20', 0),
-(15, 'Thoại', 'thoai', '$2b$10$ccZw/HKZ7rXW2dsveWtjReUoDAVi6RjoncJTPX3WAYkTBvel5cg06', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsImFkbWluIjowLCJpYXQiOjE2Mzg4ODY3NjQsImV4cCI6MTYzODk3MzE2NH0.yOxcuJdsmIwcdgzqyz0egUIAX3kc9yujKVnlW0slbi8', '2000-01-01', 1, 'thoai@gmail.com', '0123456789', 0, '2021-12-07 15:31:51', '2021-12-07 15:31:51', 0),
-(16, 'Thịnh', 'thinh', '$2b$10$UeoL.FzeFlMDmMvNcII6POWuRq1MGR2Lt83OWXeCSCZ3zpn1raj4O', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImFkbWluIjoxLCJpYXQiOjE2Mzg5MzEzOTcsImV4cCI6MTYzOTAxNzc5N30.F-LMbcQR3iw8p81AT-fLw-rwLuQDbh88XHamET3qKEs', '2000-10-16', 1, 'thinh@gmail.com', '0123456789', 1, '2021-12-07 15:33:10', '2021-12-07 15:33:10', 0),
-(17, 'Tài', 'tai', '$2b$10$eyhUi.EXtmviKKb6rQ8ADOVUESPjkG9YKCVElaQ3meZo8nrK3uSee', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsImFkbWluIjoxLCJpYXQiOjE2Mzg4ODM1MjUsImV4cCI6MTYzODk2OTkyNX0.9r5U00CqPzGayOqMzvVpzNn3oSOjQ9dBkW6dtYR444k', '2000-01-01', 1, 'tai@gmail.com', '0123456789', 1, '2021-12-07 15:37:27', '2021-12-07 15:37:27', 0);
+(14, 'Nguyễn Hoàng Việt', 'viet', '$2b$10$aeFsPyBdMrbH80YVjEYx6.eIgzXoDBX6DFgJn/.h4.pBV7KHrRsWS', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImFkbWluIjowLCJpYXQiOjE2MzkxMjk5NDUsImV4cCI6MTYzOTIxNjM0NX0.4oDF1vgQAgiaEp9azQwqDCGIgv7JSOKuUQtPHrLJtwk', '2000-01-01', 1, 'viet@gmail.com', '0123456789', 0, '2021-12-07 15:22:20', '2021-12-08 17:05:58', 0),
+(16, 'Nguyễn Duy Thịnh', 'thinh', '$2b$10$ZsuuwnNsNyDG/JZBf8pBoO4l2wnyfcC917yeTapi5/ZeWQvV70ZeS', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImFkbWluIjoxLCJpYXQiOjE2MzkxMjU5MzYsImV4cCI6MTYzOTIxMjMzNn0.MP-VFU0egTJbGiXsNZgwiks9WtVLwjNQPb4nBxOkkjY', '2000-10-16', 1, 'thinh@gmail.com', '0123456789', 1, '2021-12-07 15:33:10', '2021-12-08 17:09:15', 0),
+(17, 'Nguyễn Tiến Tài', 'tai', '$2b$10$eyhUi.EXtmviKKb6rQ8ADOVUESPjkG9YKCVElaQ3meZo8nrK3uSee', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsImFkbWluIjoxLCJpYXQiOjE2Mzg5NTQ5NDgsImV4cCI6MTYzOTA0MTM0OH0.6ML730j9UX1451vEu8JsGKjvkVNDh6pFTZ1TBV76HlM', '2000-10-20', 1, 'tai@gmail.com', '0123456789', 1, '2021-12-07 15:37:27', '2021-12-08 17:09:29', 0),
+(18, 'Thái Văn Nam', 'nam', '$2b$10$yGb6JgSGxAS5zDxRrdp/tujSEHmuu0d0zYEkiNVsP30dZae1HIzi.', '', '2000-12-09', 1, 'nam@gmail.com', '0123456789', 1, '2021-12-08 17:10:14', '2021-12-08 17:10:14', 0),
+(19, 'Lê Nguyễn Hoàng Anh', 'hoanganh', '$2b$10$xCL5Jy6xRcYDxJoyLkOcJODxedHgsPm01kW8GlF/mUuhTQkByE4sO', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImFkbWluIjowLCJpYXQiOjE2MzkxMjkzNDYsImV4cCI6MTYzOTIxNTc0Nn0.W9Bb7V-taGpjZFSuBmFiW7wE_TYs7OTIWzKiy7D4vJ0', '2000-01-01', 0, 'hoanganh@gmail.com', '0123456789', 0, '2021-12-10 15:43:01', '2021-12-10 15:43:01', 0);
 
 -- --------------------------------------------------------
 
@@ -236,14 +233,6 @@ INSERT INTO `sanpham` (`id`, `tensp`, `public_id`, `url`, `size`, `chitiet`, `gi
 --
 
 --
--- Indexes for table `chitietgiohang`
---
-ALTER TABLE `chitietgiohang`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_id_giohang` (`id_giohang`),
-  ADD KEY `fk_id_sp` (`id_sp`);
-
---
 -- Indexes for table `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
@@ -262,7 +251,8 @@ ALTER TABLE `danhmuc`
 --
 ALTER TABLE `giohang`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_id_nd` (`id_nd`);
+  ADD KEY `fk_id_nd` (`id_nd`),
+  ADD KEY `fk_id_sp` (`id_sp`);
 
 --
 -- Indexes for table `hinhthucthanhtoan`
@@ -316,12 +306,6 @@ ALTER TABLE `sanpham`
 --
 
 --
--- AUTO_INCREMENT for table `chitietgiohang`
---
-ALTER TABLE `chitietgiohang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
@@ -337,7 +321,7 @@ ALTER TABLE `danhmuc`
 -- AUTO_INCREMENT for table `giohang`
 --
 ALTER TABLE `giohang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `hinhthucthanhtoan`
@@ -367,7 +351,7 @@ ALTER TABLE `listaddress`
 -- AUTO_INCREMENT for table `nguoidung`
 --
 ALTER TABLE `nguoidung`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `rating`
@@ -386,13 +370,6 @@ ALTER TABLE `sanpham`
 --
 
 --
--- Constraints for table `chitietgiohang`
---
-ALTER TABLE `chitietgiohang`
-  ADD CONSTRAINT `fk_id_giohang` FOREIGN KEY (`id_giohang`) REFERENCES `giohang` (`id`),
-  ADD CONSTRAINT `fk_id_sp` FOREIGN KEY (`id_sp`) REFERENCES `sanpham` (`id`);
-
---
 -- Constraints for table `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
@@ -403,7 +380,8 @@ ALTER TABLE `chitiethoadon`
 -- Constraints for table `giohang`
 --
 ALTER TABLE `giohang`
-  ADD CONSTRAINT `fk_id_nd` FOREIGN KEY (`id_nd`) REFERENCES `nguoidung` (`id`);
+  ADD CONSTRAINT `fk_id_nd` FOREIGN KEY (`id_nd`) REFERENCES `nguoidung` (`id`),
+  ADD CONSTRAINT `fk_id_sp` FOREIGN KEY (`id_sp`) REFERENCES `sanpham` (`id`);
 
 --
 -- Constraints for table `hoadon`

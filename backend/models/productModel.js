@@ -23,22 +23,7 @@ module.exports = {
 
   //lấy chi tiết từng sản phẩm
   async getProductId(id) {
-    let product = await knex("sanpham")
-      .join("danhmuc", "danhmuc.id", "=", "sanpham.id_dm")
-      .select(
-        "sanpham.id",
-        "sanpham.tensp",
-        "sanpham.chitiet",
-        "sanpham .size",
-        "sanpham.gia",
-        "sanpham.public_id",
-        "sanpham.url",
-        "sanpham.id_dm",
-        "sanpham.createdAt",
-        "sanpham.updatedAt",
-        "sanpham.deleted_fg"
-      )
-      .where("sanpham.id", id);
+    let product = await knex("sanpham").select("*").where("id", id);
     return product;
   },
 
