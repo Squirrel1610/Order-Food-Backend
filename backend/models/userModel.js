@@ -260,4 +260,10 @@ module.exports = {
       message: "Update successfully",
     };
   },
+
+  //xóa tài khoản (admin)
+  async deleteUser(id) {
+    let result = await knex("nguoidung").del().where("id", id);
+    return result;
+  },
 };

@@ -7,6 +7,9 @@ const router = express.Router();
 //GET ALL PRODUCT
 router.get("/", productController.getAllProducts);
 
+//GET one product
+router.get("/:id", productController.getProductId);
+
 //POST
 router.post("/", checkAuth.checkAuthAdmin, productController.insertProduct);
 

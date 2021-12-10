@@ -4,7 +4,7 @@ const userController = require("../controllers/userController.js");
 const checkAuth = require("../middleware/checkAuth.js");
 
 //lấy thông tin tài khoản đang đăng nhập
-router.get("/profile", checkAuth.checkAuthUser, userController.getProfile);
+router.get("/profile", checkAuth.checkAuthCustomer, userController.getProfile);
 
 //đăng ký tài khoản customer
 router.post("/register", userController.registerAsCustomer);
@@ -21,14 +21,14 @@ router.delete("/logout", userController.logout);
 //thay đổi mật khẩu tài khoản đang đăng nhập (customer)
 router.patch(
   "/changePassword",
-  checkAuth.checkAuthUser,
+  checkAuth.checkAuthCustomer,
   userController.changePassword
 );
 
 //chỉnh sửa thông tin tài khoản đang đăng nhập
 router.patch(
   "/updateProfile",
-  checkAuth.checkAuthUser,
+  checkAuth.checkAuthCustomer,
   userController.updateProfile
 );
 

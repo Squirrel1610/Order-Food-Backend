@@ -23,4 +23,7 @@ router.patch(
   categoryController.deleteCategory
 );
 
+//lấy sản phẩm theo danh mục
+router.get("/:id", categoryController.getProductsWithCategoryId);
+
 module.exports = router;

@@ -19,7 +19,7 @@ router.post("/login", userController.loginAsAdmin);
 router.get("/refreshToken", userController.refreshToken);
 
 //Logout
-router.delete("/logout", userController.logout);
+router.get("/logout", userController.logout);
 
 //chỉnh sửa thông tin tất cả tài khoản (admin)
 router.patch(
@@ -33,6 +33,13 @@ router.patch(
   "/changePassword",
   checkAuth.checkAuthAdmin,
   userController.changePassword
+);
+
+//xóa tài khoản (admin)
+router.delete(
+  "/users/delete/:id",
+  checkAuth.checkAuthAdmin,
+  userController.deleteUser
 );
 
 module.exports = router;

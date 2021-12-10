@@ -12,6 +12,8 @@ const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const path = require("path");
+
 require("dotenv").config();
 
 app.use(

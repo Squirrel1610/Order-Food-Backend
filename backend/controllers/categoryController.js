@@ -97,4 +97,26 @@ module.exports = {
         });
       });
   },
+
+  //lấy ra sản phẩm theo danh mục
+  getProductsWithCategoryId(req, res) {
+    const id = req.params.id;
+
+    categoryModel
+      .getProductWithCategoryId(id)
+      .then((products) => {
+        return res.status(200).json({
+          status: 200,
+          message: `Get products with category id : ${id} successfully`,
+          data: products,
+        });
+      })
+      .catch((error) => {
+        return res.status(400).json({
+          status: 400,
+          msg: `Get products with category id : ${id} failed`,
+          data: error,
+        });
+      });
+  },
 };

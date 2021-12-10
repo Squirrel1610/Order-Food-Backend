@@ -83,6 +83,7 @@ module.exports = {
       .then((data) => {
         res.cookie("refreshToken", data.refreshToken, {
           httpOnly: true,
+          // path: "/user/refresh_token",
           maxAge: 24 * 60 * 60 * 1000,
         });
         return res.json(data);
@@ -104,6 +105,7 @@ module.exports = {
       .then((data) => {
         res.cookie("refreshToken", data.refreshToken, {
           httpOnly: true,
+          // path: "/user/refresh_token",
           maxAge: 24 * 60 * 60 * 1000,
         });
         return res.json(data);
@@ -136,8 +138,14 @@ module.exports = {
 
   //logout
   logout(req, res) {
-    //res.json(req.cookies.refreshToken)
+    // const token = browser.cookies.get({
+    //   url: "/user/refresh_token",
+    //   name: "refreshToken",
+    // });
+    // return res.json(token);
+
     const token = req.cookies.refreshToken;
+
     userModel
       .logout(token)
       .then((result) => {
@@ -195,8 +203,7 @@ module.exports = {
 
   //chỉnh sửa toàn bộ tài khoản (admin)
   updateAllUser(req, res) {
-    const { username, hoten, password, ngaysinh, gioitinh, dienthoai, admin } =
-      req.body;
+    const { username, hoten, ngaysinh, gioitinh, dienthoai, admin } = req.body;
 
     const id = req.params.id;
     const user = {
@@ -287,6 +294,28 @@ module.exports = {
         return res.status(400).json({
           status: 400,
           message: "Failed to update profile",
+        });
+      });
+  },
+
+  //xóa tài khoản (admin)
+  deleteUser(req, res) {
+    const id = req.params.id;
+
+    userModel
+      .deleteUser(id)
+      .then((result) => {
+        return res.status(200).json({
+          status: 200,
+          message: `Deleted user with id: ${id} successfully`,
+          data: result,
+        });
+      })
+      .catch((error) => {
+        return res.status(400).json({
+          status: 400,
+          message: `Failed to delete user with id: ${id}`,
+          data: error,
         });
       });
   },
