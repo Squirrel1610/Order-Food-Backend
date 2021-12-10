@@ -15,7 +15,7 @@ router.post(
 
 //chỉnh sửa số lượng sản phẩm trong giỏ hàng
 router.patch(
-  "/updateQuantityProduct/:id_sp",
+  "/updateQuantityProduct/:id",
   checkAuth.checkAuthCustomer,
   cartController.updateProductQuantity
 );

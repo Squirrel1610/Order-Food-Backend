@@ -17,7 +17,7 @@ module.exports = {
   async updateProductQuantity(cartItem) {
     let result = await knex("giohang").update(cartItem).where({
       id_nd: cartItem.id_nd,
-      id_sp: cartItem.id_sp,
+      id: cartItem.id,
     });
     return result;
   },

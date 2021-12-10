@@ -66,6 +66,7 @@ module.exports = {
           });
 
         return {
+          status: 200,
           message: "Login successful",
           accessToken: accessToken,
           refreshToken: refreshToken,
@@ -126,6 +127,7 @@ module.exports = {
           });
 
         return {
+          status: 200,
           message: "Login successful",
           accessToken: accessToken,
           refreshToken: refreshToken,

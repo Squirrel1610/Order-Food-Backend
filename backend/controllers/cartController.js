@@ -64,11 +64,11 @@ module.exports = {
   updateProductQuantity(req, res) {
     //lấy id khách hàng đang đăng nhập
     const idUser = req.userData.id;
-    const id_sp = req.params.id_sp;
+    const id = req.params.id;
     const { soluong } = req.body;
     const cartItem = {
       id_nd: idUser,
-      id_sp: id_sp,
+      id: id,
       soluong: soluong,
       updatedAt: new Date(),
     };
