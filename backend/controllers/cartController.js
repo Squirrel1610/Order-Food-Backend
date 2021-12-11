@@ -45,11 +45,7 @@ module.exports = {
         return cartModel.addCartItem(cartItem);
       })
       .then((result) => {
-        return res.status(200).json({
-          status: 200,
-          message: "Product added into your cart successfully",
-          data: result,
-        });
+        return res.status(200).json(result);
       })
       .catch((err) => {
         res.status(400).json({

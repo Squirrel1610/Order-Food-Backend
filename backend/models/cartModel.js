@@ -9,8 +9,24 @@ module.exports = {
 
   //thêm sản phẩm vào giỏ hàng của khách hàng đăng nhập
   async addCartItem(cartItem) {
-    let result = await knex("giohang").insert(cartItem);
-    return result;
+    //kiểm tra sản phẩm thêm vào giỏ hàng có bị trùng không
+    let result = await knex("giohang").count("id_sp as a").where({
+      id_nd: cartItem.id_nd,
+      id_sp: cartItem.id_sp,
+    });
+    if (result[0].a === 0) {
+      let idCartItem = await knex("giohang").insert(cartItem);
+      return {
+        status: 200,
+        message: "Product added into your cart successfully",
+        data: idCartItem,
+      };
+    } else {
+      return {
+        status: 400,
+        message: "There has been this product in your cart!",
+      };
+    }
   },
 
   //chỉnh sửa số lượng sản phẩm trong giỏ hàng

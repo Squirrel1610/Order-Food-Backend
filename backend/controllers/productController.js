@@ -45,6 +45,9 @@ module.exports = {
   //thêm sản phẩm
   insertProduct(req, res) {
     const { tensp, chitiet, size, gia, public_id, url, id_dm } = req.body;
+    if (!(public_id && url)) {
+      return res.status(400).json({ message: "No image upload" });
+    }
     const product = {
       tensp: tensp,
       chitiet: chitiet,
