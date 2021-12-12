@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2021 at 10:55 AM
+-- Generation Time: Dec 12, 2021 at 08:41 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `order_food`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `app_info`
+--
+
+CREATE TABLE `app_info` (
+  `slug` int(11) NOT NULL,
+  `value` varchar(500) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `deleted_fg` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `app_info`
+--
+
+INSERT INTO `app_info` (`slug`, `value`, `createdAt`, `updatedAt`, `deleted_fg`) VALUES
+(1, 'value1', '2021-12-12 13:45:25', '2021-12-12 13:55:18', 0),
+(2, 'value2', '2021-12-12 13:45:35', '2021-12-12 13:45:35', 0);
 
 -- --------------------------------------------------------
 
@@ -67,6 +89,28 @@ INSERT INTO `danhmuc` (`id`, `tendm`, `createdAt`, `updatedAt`, `deleted_fg`) VA
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `danhsach_diachi`
+--
+
+CREATE TABLE `danhsach_diachi` (
+  `id` int(11) NOT NULL,
+  `id_nd` int(11) NOT NULL,
+  `diachi` varchar(255) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `deleted_fg` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `danhsach_diachi`
+--
+
+INSERT INTO `danhsach_diachi` (`id`, `id_nd`, `diachi`, `createdAt`, `updatedAt`, `deleted_fg`) VALUES
+(7, 14, '237/32 Đặng Tất, Vĩnh Hải, Nha Trang', '2021-12-12 13:06:09', '2021-12-12 13:06:09', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `giohang`
 --
 
@@ -86,7 +130,9 @@ CREATE TABLE `giohang` (
 --
 
 INSERT INTO `giohang` (`id`, `id_nd`, `id_sp`, `don_gia`, `soluong`, `tong_gia`, `createdAt`, `updatedAt`) VALUES
-(8, 14, 148, 129000, 1, 129000, '2021-12-10 16:53:13', '2021-12-10 16:53:13');
+(8, 14, 148, 129000, 3, 129000, '2021-12-10 16:53:13', '2021-12-10 17:16:53'),
+(9, 14, 147, 169000, 1, 169000, '2021-12-10 21:10:42', '2021-12-10 21:10:42'),
+(10, 14, 149, 70000, 1, 70000, '2021-12-11 12:01:42', '2021-12-11 12:01:42');
 
 -- --------------------------------------------------------
 
@@ -96,12 +142,20 @@ INSERT INTO `giohang` (`id`, `id_nd`, `id_sp`, `don_gia`, `soluong`, `tong_gia`,
 
 CREATE TABLE `hinhthucthanhtoan` (
   `id` int(11) NOT NULL,
-  `image` varchar(255) CHARACTER SET utf8 NOT NULL,
-  `name` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `ten_hinhthuc` varchar(255) NOT NULL,
+  `public_id` text CHARACTER SET utf8 NOT NULL,
+  `url` text CHARACTER SET utf8 NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   `deleted_fg` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `hinhthucthanhtoan`
+--
+
+INSERT INTO `hinhthucthanhtoan` (`id`, `ten_hinhthuc`, `public_id`, `url`, `createdAt`, `updatedAt`, `deleted_fg`) VALUES
+(1, 'Viettel Payment', 'payments/l9psqjbwjt0smztdcult', 'https://res.cloudinary.com/order-food/image/upload/v1639294538/payments/l9psqjbwjt0smztdcult.jpg', '2021-12-12 08:38:52', '2021-12-12 08:38:52', 0);
 
 -- --------------------------------------------------------
 
@@ -119,35 +173,6 @@ CREATE TABLE `hoadon` (
   `deleted_fg` tinyint(1) NOT NULL DEFAULT 0,
   `id_thanhtoan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `info`
---
-
-CREATE TABLE `info` (
-  `slug` int(11) NOT NULL,
-  `value` varchar(500) NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
-  `deleted_fg` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `listaddress`
---
-
-CREATE TABLE `listaddress` (
-  `id` int(11) NOT NULL,
-  `id_nd` int(11) NOT NULL,
-  `diachi` text NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
-  `deleted_fg` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -176,8 +201,8 @@ CREATE TABLE `nguoidung` (
 --
 
 INSERT INTO `nguoidung` (`id`, `hoten`, `username`, `password`, `refresh_token`, `ngaysinh`, `gioitinh`, `email`, `dienthoai`, `admin`, `createdAt`, `updatedAt`, `deleted_fg`) VALUES
-(14, 'Nguyễn Hoàng Việt', 'viet', '$2b$10$aeFsPyBdMrbH80YVjEYx6.eIgzXoDBX6DFgJn/.h4.pBV7KHrRsWS', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImFkbWluIjowLCJpYXQiOjE2MzkxMjk5NDUsImV4cCI6MTYzOTIxNjM0NX0.4oDF1vgQAgiaEp9azQwqDCGIgv7JSOKuUQtPHrLJtwk', '2000-01-01', 1, 'viet@gmail.com', '0123456789', 0, '2021-12-07 15:22:20', '2021-12-08 17:05:58', 0),
-(16, 'Nguyễn Duy Thịnh', 'thinh', '$2b$10$ZsuuwnNsNyDG/JZBf8pBoO4l2wnyfcC917yeTapi5/ZeWQvV70ZeS', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImFkbWluIjoxLCJpYXQiOjE2MzkxMjU5MzYsImV4cCI6MTYzOTIxMjMzNn0.MP-VFU0egTJbGiXsNZgwiks9WtVLwjNQPb4nBxOkkjY', '2000-10-16', 1, 'thinh@gmail.com', '0123456789', 1, '2021-12-07 15:33:10', '2021-12-08 17:09:15', 0),
+(14, 'Nguyễn Hoàng Việt', 'viet', '$2b$10$aeFsPyBdMrbH80YVjEYx6.eIgzXoDBX6DFgJn/.h4.pBV7KHrRsWS', '', '2000-01-01', 1, 'viet@gmail.com', '0123456789', 0, '2021-12-07 15:22:20', '2021-12-08 17:05:58', 0),
+(16, 'Nguyễn Duy Thịnh', 'thinh', '$2b$10$ZsuuwnNsNyDG/JZBf8pBoO4l2wnyfcC917yeTapi5/ZeWQvV70ZeS', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImFkbWluIjoxLCJpYXQiOjE2MzkyOTQxMTMsImV4cCI6MTYzOTM4MDUxM30.5C-KgGdSFCdrRPCRp_EVhjg9seimwEqndwtskO1v4TE', '2000-10-16', 1, 'thinh@gmail.com', '0123456789', 1, '2021-12-07 15:33:10', '2021-12-08 17:09:15', 0),
 (17, 'Nguyễn Tiến Tài', 'tai', '$2b$10$eyhUi.EXtmviKKb6rQ8ADOVUESPjkG9YKCVElaQ3meZo8nrK3uSee', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsImFkbWluIjoxLCJpYXQiOjE2Mzg5NTQ5NDgsImV4cCI6MTYzOTA0MTM0OH0.6ML730j9UX1451vEu8JsGKjvkVNDh6pFTZ1TBV76HlM', '2000-10-20', 1, 'tai@gmail.com', '0123456789', 1, '2021-12-07 15:37:27', '2021-12-08 17:09:29', 0),
 (18, 'Thái Văn Nam', 'nam', '$2b$10$yGb6JgSGxAS5zDxRrdp/tujSEHmuu0d0zYEkiNVsP30dZae1HIzi.', '', '2000-12-09', 1, 'nam@gmail.com', '0123456789', 1, '2021-12-08 17:10:14', '2021-12-08 17:10:14', 0),
 (19, 'Lê Nguyễn Hoàng Anh', 'hoanganh', '$2b$10$xCL5Jy6xRcYDxJoyLkOcJODxedHgsPm01kW8GlF/mUuhTQkByE4sO', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImFkbWluIjowLCJpYXQiOjE2MzkxMjkzNDYsImV4cCI6MTYzOTIxNTc0Nn0.W9Bb7V-taGpjZFSuBmFiW7wE_TYs7OTIWzKiy7D4vJ0', '2000-01-01', 0, 'hoanganh@gmail.com', '0123456789', 0, '2021-12-10 15:43:01', '2021-12-10 15:43:01', 0);
@@ -226,11 +251,18 @@ INSERT INTO `sanpham` (`id`, `tensp`, `public_id`, `url`, `size`, `chitiet`, `gi
 (147, 'Pizza Hải Sản Pesto Xanh', 'products/fxvds8nhm0o6on3ezvco', 'https://res.cloudinary.com/order-food/image/upload/v1638931543/products/fxvds8nhm0o6on3ezvco.png', 'M', 'Tôm, cua, mực và bông cải xanh tươi ngon trên nền sốt Pesto Xanh', 169000, 16, '2021-12-07 16:55:47', '2021-12-08 09:46:27', 0),
 (148, 'Mì Ý thịt bò bằm', 'products/rvxgnrwqcbboc72lzr9n', 'https://res.cloudinary.com/order-food/image/upload/v1638930969/products/rvxgnrwqcbboc72lzr9n.png', 'S', 'Sốt thịt bò bằm đặc trưng kết hợp cùng mỳ Ý', 129000, 17, '2021-12-07 16:55:47', '2021-12-08 09:38:10', 0),
 (149, 'Salad Trộn Sốt Caesar', 'products/awae3ae7trhyhasj2tdb', 'https://res.cloudinary.com/order-food/image/upload/v1638931601/products/awae3ae7trhyhasj2tdb.png', 'M', 'Rau tươi trộn với sốt Caesar', 70000, 18, '2021-12-08 00:04:12', '2021-12-08 09:47:19', 0),
-(150, 'Gà Zòn Zòn (10 miếng)', 'products/epdweajxyfx7zuw6bcxk', 'https://res.cloudinary.com/order-food/image/upload/v1638931907/products/epdweajxyfx7zuw6bcxk.png', 'L', 'Cánh gà được phủ bởi một lớp bột chiên giòn', 189000, 19, '2021-12-08 09:53:02', '2021-12-08 09:53:02', 0);
+(150, 'Gà Zòn Zòn (10 miếng)', 'products/epdweajxyfx7zuw6bcxk', 'https://res.cloudinary.com/order-food/image/upload/v1638931907/products/epdweajxyfx7zuw6bcxk.png', 'L', 'Cánh gà được phủ bởi một lớp bột chiên giòn', 189000, 19, '2021-12-08 09:53:02', '2021-12-08 09:53:02', 0),
+(151, 'Bia Tiger', 'products/asxqwkvfznxivys7rjsb', 'https://res.cloudinary.com/order-food/image/upload/v1639197221/products/asxqwkvfznxivys7rjsb.png', 'S', 'Uống vào là say', 49000, 20, '2021-12-11 11:35:30', '2021-12-11 11:35:30', 0);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `app_info`
+--
+ALTER TABLE `app_info`
+  ADD PRIMARY KEY (`slug`);
 
 --
 -- Indexes for table `chitiethoadon`
@@ -245,6 +277,13 @@ ALTER TABLE `chitiethoadon`
 --
 ALTER TABLE `danhmuc`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `danhsach_diachi`
+--
+ALTER TABLE `danhsach_diachi`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `dsdc_fk_id_nd` (`id_nd`);
 
 --
 -- Indexes for table `giohang`
@@ -267,19 +306,6 @@ ALTER TABLE `hoadon`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `idnd` (`id_nd`),
   ADD UNIQUE KEY `id_httt` (`id_thanhtoan`);
-
---
--- Indexes for table `info`
---
-ALTER TABLE `info`
-  ADD PRIMARY KEY (`slug`);
-
---
--- Indexes for table `listaddress`
---
-ALTER TABLE `listaddress`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `idnd` (`id_nd`);
 
 --
 -- Indexes for table `nguoidung`
@@ -306,6 +332,12 @@ ALTER TABLE `sanpham`
 --
 
 --
+-- AUTO_INCREMENT for table `app_info`
+--
+ALTER TABLE `app_info`
+  MODIFY `slug` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
@@ -318,34 +350,28 @@ ALTER TABLE `danhmuc`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
+-- AUTO_INCREMENT for table `danhsach_diachi`
+--
+ALTER TABLE `danhsach_diachi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `giohang`
 --
 ALTER TABLE `giohang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `hinhthucthanhtoan`
 --
 ALTER TABLE `hinhthucthanhtoan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `hoadon`
 --
 ALTER TABLE `hoadon`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
-
---
--- AUTO_INCREMENT for table `info`
---
-ALTER TABLE `info`
-  MODIFY `slug` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `listaddress`
---
-ALTER TABLE `listaddress`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `nguoidung`
@@ -363,7 +389,7 @@ ALTER TABLE `rating`
 -- AUTO_INCREMENT for table `sanpham`
 --
 ALTER TABLE `sanpham`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
 
 --
 -- Constraints for dumped tables
@@ -375,6 +401,12 @@ ALTER TABLE `sanpham`
 ALTER TABLE `chitiethoadon`
   ADD CONSTRAINT `chitiethoadon_ibfk_1` FOREIGN KEY (`id_hd`) REFERENCES `hoadon` (`id`),
   ADD CONSTRAINT `chitiethoadon_ibfk_2` FOREIGN KEY (`id_sp`) REFERENCES `sanpham` (`id`);
+
+--
+-- Constraints for table `danhsach_diachi`
+--
+ALTER TABLE `danhsach_diachi`
+  ADD CONSTRAINT `dsdc_fk_id_nd` FOREIGN KEY (`id_nd`) REFERENCES `nguoidung` (`id`);
 
 --
 -- Constraints for table `giohang`
@@ -389,12 +421,6 @@ ALTER TABLE `giohang`
 ALTER TABLE `hoadon`
   ADD CONSTRAINT `hoadon_ibfk_1` FOREIGN KEY (`id_nd`) REFERENCES `nguoidung` (`id`),
   ADD CONSTRAINT `hoadon_ibfk_2` FOREIGN KEY (`id_thanhtoan`) REFERENCES `hinhthucthanhtoan` (`id`);
-
---
--- Constraints for table `listaddress`
---
-ALTER TABLE `listaddress`
-  ADD CONSTRAINT `listaddress_ibfk_1` FOREIGN KEY (`id_nd`) REFERENCES `nguoidung` (`id`);
 
 --
 -- Constraints for table `rating`
