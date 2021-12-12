@@ -8,6 +8,7 @@ const categoryRouter = require("./routers/categoryRouter.js");
 const productRouter = require("./routers/productRouter.js");
 const upload = require("./routers/upload.js");
 const cartRouter = require("./routers/cartRouter.js");
+const addressRouter = require("./routers/addressRouter.js");
 
 const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser");
@@ -57,6 +58,9 @@ app.use("/cloud/", upload);
 
 //cổng cart
 app.use("/cart/", cartRouter);
+
+//cổng address
+app.use("/address/", addressRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
