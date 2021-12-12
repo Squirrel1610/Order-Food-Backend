@@ -104,7 +104,7 @@ module.exports = {
       .catch((error) => {
         res.status(400).json({
           status: 400,
-          msg: "Failed to add product",
+          msg: "Failed to update product",
           data: error,
         });
       });
