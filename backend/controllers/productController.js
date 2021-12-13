@@ -110,7 +110,7 @@ module.exports = {
       });
   },
 
-  //xóa sản phẩm
+  //xóa sản phẩm (xóa mềm)
   deleteProduct(req, res) {
     const id = req.params.id;
     const product = {

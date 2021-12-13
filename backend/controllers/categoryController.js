@@ -73,7 +73,7 @@ module.exports = {
       });
   },
 
-  //DELETE
+  //DELETE (xóa mềm)
   deleteCategory(req, res) {
     const id = req.params.id;
     const category = {

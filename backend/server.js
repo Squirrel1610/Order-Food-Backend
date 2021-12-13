@@ -11,6 +11,8 @@ const cartRouter = require("./routers/cartRouter.js");
 const addressRouter = require("./routers/addressRouter.js");
 const appInfoRouter = require("./routers/appInfoRouter.js");
 const paymentRouter = require("./routers/paymentRouter.js");
+const billRouter = require("./routers/billRouter.js");
+const billDetailRouter = require("./routers/billDetailRouter.js");
 
 const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser");
@@ -69,6 +71,12 @@ app.use("/appInfo/", appInfoRouter);
 
 //cổng payment
 app.use("/payment/", paymentRouter);
+
+//cổng hóa đơn
+app.use("/bill/", billRouter);
+
+//cổng chi tiết hóa đơn
+app.use("/billDetail", billDetailRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
