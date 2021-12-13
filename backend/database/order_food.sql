@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2021 at 08:41 AM
+-- Generation Time: Dec 13, 2021 at 02:31 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -57,9 +57,18 @@ CREATE TABLE `chitiethoadon` (
   `tong_gia` int(11) NOT NULL,
   `id_sp` int(11) NOT NULL,
   `createdAt` datetime NOT NULL,
-  `updateAt` datetime(1) NOT NULL,
+  `updatedAt` datetime NOT NULL,
   `deleted_fg` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `chitiethoadon`
+--
+
+INSERT INTO `chitiethoadon` (`id`, `id_hd`, `don_gia`, `soluong`, `tong_gia`, `id_sp`, `createdAt`, `updatedAt`, `deleted_fg`) VALUES
+(9, 74, 169000, 2, 169000, 147, '2021-12-13 20:16:57', '2021-12-13 20:16:57', 0),
+(10, 74, 129000, 1, 129000, 148, '2021-12-13 20:16:57', '2021-12-13 20:16:57', 0),
+(11, 74, 49000, 3, 49000, 151, '2021-12-13 20:16:57', '2021-12-13 20:16:57', 0);
 
 -- --------------------------------------------------------
 
@@ -125,15 +134,6 @@ CREATE TABLE `giohang` (
   `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `giohang`
---
-
-INSERT INTO `giohang` (`id`, `id_nd`, `id_sp`, `don_gia`, `soluong`, `tong_gia`, `createdAt`, `updatedAt`) VALUES
-(8, 14, 148, 129000, 3, 129000, '2021-12-10 16:53:13', '2021-12-10 17:16:53'),
-(9, 14, 147, 169000, 1, 169000, '2021-12-10 21:10:42', '2021-12-10 21:10:42'),
-(10, 14, 149, 70000, 1, 70000, '2021-12-11 12:01:42', '2021-12-11 12:01:42');
-
 -- --------------------------------------------------------
 
 --
@@ -155,7 +155,8 @@ CREATE TABLE `hinhthucthanhtoan` (
 --
 
 INSERT INTO `hinhthucthanhtoan` (`id`, `ten_hinhthuc`, `public_id`, `url`, `createdAt`, `updatedAt`, `deleted_fg`) VALUES
-(1, 'Viettel Payment', 'payments/l9psqjbwjt0smztdcult', 'https://res.cloudinary.com/order-food/image/upload/v1639294538/payments/l9psqjbwjt0smztdcult.jpg', '2021-12-12 08:38:52', '2021-12-12 08:38:52', 0);
+(1, 'Viettel Payment', 'payments/l9psqjbwjt0smztdcult', 'https://res.cloudinary.com/order-food/image/upload/v1639294538/payments/l9psqjbwjt0smztdcult.jpg', '2021-12-12 08:38:52', '2021-12-12 08:38:52', 0),
+(2, 'Thẻ ATM', 'payments/c75baoppiibf52dko5bs', 'https://res.cloudinary.com/order-food/image/upload/v1639303148/payments/c75baoppiibf52dko5bs.jpg', '2021-12-12 17:00:08', '2021-12-12 17:00:08', 0);
 
 -- --------------------------------------------------------
 
@@ -166,13 +167,21 @@ INSERT INTO `hinhthucthanhtoan` (`id`, `ten_hinhthuc`, `public_id`, `url`, `crea
 CREATE TABLE `hoadon` (
   `id` int(11) NOT NULL,
   `id_nd` int(11) NOT NULL,
+  `id_thanhtoan` int(11) NOT NULL,
+  `diachi` varchar(255) NOT NULL,
   `ngaydathang` datetime NOT NULL,
   `tinhtrangHD` varchar(50) NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
-  `deleted_fg` tinyint(1) NOT NULL DEFAULT 0,
-  `id_thanhtoan` int(11) NOT NULL
+  `deleted_fg` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `hoadon`
+--
+
+INSERT INTO `hoadon` (`id`, `id_nd`, `id_thanhtoan`, `diachi`, `ngaydathang`, `tinhtrangHD`, `createdAt`, `updatedAt`, `deleted_fg`) VALUES
+(74, 19, 1, 'diachi1', '2021-12-13 20:16:57', 'Đã thanh toán', '2021-12-13 20:16:57', '2021-12-13 20:16:57', 0);
 
 -- --------------------------------------------------------
 
@@ -202,10 +211,10 @@ CREATE TABLE `nguoidung` (
 
 INSERT INTO `nguoidung` (`id`, `hoten`, `username`, `password`, `refresh_token`, `ngaysinh`, `gioitinh`, `email`, `dienthoai`, `admin`, `createdAt`, `updatedAt`, `deleted_fg`) VALUES
 (14, 'Nguyễn Hoàng Việt', 'viet', '$2b$10$aeFsPyBdMrbH80YVjEYx6.eIgzXoDBX6DFgJn/.h4.pBV7KHrRsWS', '', '2000-01-01', 1, 'viet@gmail.com', '0123456789', 0, '2021-12-07 15:22:20', '2021-12-08 17:05:58', 0),
-(16, 'Nguyễn Duy Thịnh', 'thinh', '$2b$10$ZsuuwnNsNyDG/JZBf8pBoO4l2wnyfcC917yeTapi5/ZeWQvV70ZeS', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImFkbWluIjoxLCJpYXQiOjE2MzkyOTQxMTMsImV4cCI6MTYzOTM4MDUxM30.5C-KgGdSFCdrRPCRp_EVhjg9seimwEqndwtskO1v4TE', '2000-10-16', 1, 'thinh@gmail.com', '0123456789', 1, '2021-12-07 15:33:10', '2021-12-08 17:09:15', 0),
+(16, 'Nguyễn Duy Thịnh', 'thinh', '$2b$10$ZsuuwnNsNyDG/JZBf8pBoO4l2wnyfcC917yeTapi5/ZeWQvV70ZeS', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImFkbWluIjoxLCJpYXQiOjE2MzkzMTE0MzAsImV4cCI6MTYzOTM5NzgzMH0.Bm8UfKOYdTp7ImgLOsTKbroiDnjQSAZbof-TY6yLZx0', '2000-10-16', 1, 'thinh@gmail.com', '0123456789', 1, '2021-12-07 15:33:10', '2021-12-08 17:09:15', 0),
 (17, 'Nguyễn Tiến Tài', 'tai', '$2b$10$eyhUi.EXtmviKKb6rQ8ADOVUESPjkG9YKCVElaQ3meZo8nrK3uSee', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsImFkbWluIjoxLCJpYXQiOjE2Mzg5NTQ5NDgsImV4cCI6MTYzOTA0MTM0OH0.6ML730j9UX1451vEu8JsGKjvkVNDh6pFTZ1TBV76HlM', '2000-10-20', 1, 'tai@gmail.com', '0123456789', 1, '2021-12-07 15:37:27', '2021-12-08 17:09:29', 0),
 (18, 'Thái Văn Nam', 'nam', '$2b$10$yGb6JgSGxAS5zDxRrdp/tujSEHmuu0d0zYEkiNVsP30dZae1HIzi.', '', '2000-12-09', 1, 'nam@gmail.com', '0123456789', 1, '2021-12-08 17:10:14', '2021-12-08 17:10:14', 0),
-(19, 'Lê Nguyễn Hoàng Anh', 'hoanganh', '$2b$10$xCL5Jy6xRcYDxJoyLkOcJODxedHgsPm01kW8GlF/mUuhTQkByE4sO', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImFkbWluIjowLCJpYXQiOjE2MzkxMjkzNDYsImV4cCI6MTYzOTIxNTc0Nn0.W9Bb7V-taGpjZFSuBmFiW7wE_TYs7OTIWzKiy7D4vJ0', '2000-01-01', 0, 'hoanganh@gmail.com', '0123456789', 0, '2021-12-10 15:43:01', '2021-12-10 15:43:01', 0);
+(19, 'Lê Nguyễn Hoàng Anh', 'hoanganh', '$2b$10$xCL5Jy6xRcYDxJoyLkOcJODxedHgsPm01kW8GlF/mUuhTQkByE4sO', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImFkbWluIjowLCJpYXQiOjE2Mzk0MDEyNTMsImV4cCI6MTYzOTQ4NzY1M30.X_jmRWjEus0UQX-BT_2JjK9S0K3Th5IpWH90M4M0xTA', '2000-01-01', 0, 'hoanganh@gmail.com', '0123456789', 0, '2021-12-10 15:43:01', '2021-12-10 15:43:01', 0);
 
 -- --------------------------------------------------------
 
@@ -304,8 +313,8 @@ ALTER TABLE `hinhthucthanhtoan`
 --
 ALTER TABLE `hoadon`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `idnd` (`id_nd`),
-  ADD UNIQUE KEY `id_httt` (`id_thanhtoan`);
+  ADD KEY `fk_bill_id_nd` (`id_nd`),
+  ADD KEY `fk_bill_id_thanhtoan` (`id_thanhtoan`);
 
 --
 -- Indexes for table `nguoidung`
@@ -341,7 +350,7 @@ ALTER TABLE `app_info`
 -- AUTO_INCREMENT for table `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `danhmuc`
@@ -359,19 +368,19 @@ ALTER TABLE `danhsach_diachi`
 -- AUTO_INCREMENT for table `giohang`
 --
 ALTER TABLE `giohang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `hinhthucthanhtoan`
 --
 ALTER TABLE `hinhthucthanhtoan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `hoadon`
 --
 ALTER TABLE `hoadon`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `nguoidung`
@@ -419,8 +428,8 @@ ALTER TABLE `giohang`
 -- Constraints for table `hoadon`
 --
 ALTER TABLE `hoadon`
-  ADD CONSTRAINT `hoadon_ibfk_1` FOREIGN KEY (`id_nd`) REFERENCES `nguoidung` (`id`),
-  ADD CONSTRAINT `hoadon_ibfk_2` FOREIGN KEY (`id_thanhtoan`) REFERENCES `hinhthucthanhtoan` (`id`);
+  ADD CONSTRAINT `fk_bill_id_nd` FOREIGN KEY (`id_nd`) REFERENCES `nguoidung` (`id`),
+  ADD CONSTRAINT `fk_bill_id_thanhtoan` FOREIGN KEY (`id_thanhtoan`) REFERENCES `hinhthucthanhtoan` (`id`);
 
 --
 -- Constraints for table `rating`
