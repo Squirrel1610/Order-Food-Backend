@@ -49,4 +49,72 @@ module.exports = {
         });
       });
   },
+
+  //chỉnh sửa tình trạng hóa đơn (admin)
+  updateBillStatus(req, res) {
+    const id = req.params.id;
+    const { tinhtrangHD } = req.body;
+    const bill = {
+      id: id,
+      tinhtrangHD: tinhtrangHD,
+      updatedAt: new Date(),
+    };
+
+    billModel
+      .updateBillStatus(bill)
+      .then((result) => {
+        return res.status(200).json({
+          status: 200,
+          message: "updated bill status successfully",
+          data: result,
+        });
+      })
+      .catch((err) => {
+        return res.status(400).json({
+          status: 400,
+          message: "failed to update bill status",
+          data: result,
+        });
+      });
+  },
+
+  //hủy hóa đơn (khách hàng)
+  //chỉ hủy khi tình trạng là chưa thanh toán
+  cancelBill(req, res) {
+    const id = req.params.id;
+    const idUser = req.userData.id;
+    billModel
+      .cancelBill(id, idUser)
+      .then((result) => {
+        return res.status(200).json(result);
+      })
+      .catch((err) => {
+        return res.status(400).json({
+          status: 400,
+          message: "Failed",
+          data: err,
+        });
+      });
+  },
+
+  //xóa hóa đơn(admin)
+  deleteBill(req, res) {
+    const id_hd = req.params.id_hd;
+    billModel
+      .deleteBill(id_hd)
+      .then((result) => {
+        return res.status(200).json({
+          status: 200,
+          message: "Deleted bill successfully",
+          data: result,
+        });
+      })
+      .catch((err) => {
+        return res.status(400).json({
+          status: 400,
+          message: "Failed",
+          data: err,
+        });
+      });
+  },
 };

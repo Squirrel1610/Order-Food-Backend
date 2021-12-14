@@ -22,4 +22,12 @@ module.exports = {
     let result = await knex("chitiethoadon").insert(billDetails);
     return result;
   },
+
+  //xóa toàn bộ chi tiết hóa đơn theo id hóa đơn
+  async deleteAllBillDetail(id_hd) {
+    let result = await knex("chitiethoadon").del().where({
+      id_hd: id_hd,
+    });
+    return result;
+  },
 };

@@ -98,4 +98,21 @@ module.exports = {
         });
       });
   },
+
+  //xóa toàn bộ chi tiết hóa đơn theo id hóa đơn
+  deleteAllBillDetail(req, res, next) {
+    const id_hd = req.params.id_hd;
+    billDetailModel
+      .deleteAllBillDetail(id_hd)
+      .then((result) => {
+        next();
+      })
+      .catch((err) => {
+        return res.status(400).json({
+          status: 400,
+          message: "Failed to delete all bill details",
+          data: err,
+        });
+      });
+  },
 };

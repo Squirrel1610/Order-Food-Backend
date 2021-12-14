@@ -18,4 +18,26 @@ router.post(
   billDetailController.addBillDetail
 );
 
+//chỉnh sửa tình trạng hóa đơn (admin)
+router.patch(
+  "/update/:id",
+  checkAuth.checkAuthAdmin,
+  billController.updateBillStatus
+);
+
+//hủy hóa đơn (khách hàng)
+//chỉ hủy khi tình trạng là chưa thanh toán
+router.patch(
+  "/cancel/:id",
+  checkAuth.checkAuthCustomer,
+  billController.cancelBill
+);
+
+router.delete(
+  "/delete/:id_hd",
+  checkAuth.checkAuthAdmin,
+  billDetailController.deleteAllBillDetail,
+  billController.deleteBill
+);
+
 module.exports = router;
