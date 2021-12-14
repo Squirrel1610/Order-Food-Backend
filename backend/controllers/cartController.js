@@ -8,16 +8,46 @@ module.exports = {
     cartModel
       .getCartOfUser(idUser)
       .then((cart) => {
-        return res.status(200).json({
-          status: 200,
-          message: "Get cart successfully",
-          data: cart,
-        });
+        if (cart.length === 0) {
+          return res.status(200).json({
+            status: 200,
+            message: "Your cart is empty",
+            data: cart,
+          });
+        } else {
+          return res.status(200).json({
+            status: 200,
+            message: "Get cart successfully",
+            data: cart,
+          });
+        }
       })
       .catch((err) => {
         return res.status(400).json({
           status: 400,
           message: "Failed to get cart",
+          data: err,
+        });
+      });
+  },
+
+  //lấy chi tiết giỏ hàng
+  getCartItem(req, res) {
+    const id = req.params.id;
+    const idUser = req.userData.id;
+    cartModel
+      .getCartItem(id, idUser)
+      .then((cartItem) => {
+        return res.status(200).json({
+          status: 200,
+          message: "Get cart item successfully",
+          data: cartItem,
+        });
+      })
+      .catch((err) => {
+        return res.status(400).json({
+          status: 400,
+          message: "Failed to get cart item",
           data: err,
         });
       });
@@ -61,15 +91,21 @@ module.exports = {
     //lấy id khách hàng đang đăng nhập
     const idUser = req.userData.id;
     const id = req.params.id;
-    const { soluong } = req.body;
-    const cartItem = {
-      id_nd: idUser,
-      id: id,
-      soluong: soluong,
-      updatedAt: new Date(),
-    };
+
     cartModel
-      .updateProductQuantity(cartItem)
+      .getCartItem(id, idUser)
+      .then((cartItem) => {
+        const don_gia = cartItem[0].don_gia;
+        const { soluong } = req.body;
+        const item = {
+          id_nd: idUser,
+          id: id,
+          soluong: soluong,
+          tong_gia: don_gia * soluong,
+          updatedAt: new Date(),
+        };
+        return cartModel.updateProductQuantity(item);
+      })
       .then((result) => {
         return res.status(200).json({
           status: 200,

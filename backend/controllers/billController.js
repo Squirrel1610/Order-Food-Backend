@@ -25,10 +25,10 @@ module.exports = {
   //tạo hóa đơn (khách hàng)
   createBill(req, res, next) {
     const idUser = req.userData.id;
-    const { diachi, tinhtrangHD, id_thanhtoan } = req.body;
+    const { id_diachi, id_thanhtoan, tinhtrangHD } = req.body;
     const bill = {
       id_nd: idUser,
-      diachi: diachi,
+      id_diachi: id_diachi,
       ngaydathang: new Date(),
       createdAt: new Date(),
       updatedAt: new Date(),

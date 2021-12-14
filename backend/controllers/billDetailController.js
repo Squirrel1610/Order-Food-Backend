@@ -2,6 +2,48 @@ const billDetailModel = require("../models/billDetailModel.js");
 const cartModel = require("../models/cartModel.js");
 
 module.exports = {
+  //xem thông tin chi tiết theo hóa đơn
+  getBillDetail(req, res) {
+    const id_hd = req.params.id_hd;
+    billDetailModel
+      .getBillDetail(id_hd)
+      .then((billDetails) => {
+        return res.status(200).json({
+          status: 200,
+          message: `Get details of bill: ${id_hd} successfully`,
+          data: billDetails,
+        });
+      })
+      .catch((err) => {
+        return res.status(400).json({
+          status: 400,
+          message: "Failed to get bill details",
+          data: err,
+        });
+      });
+  },
+
+  //xem từng chi tiết hóa đơn
+  getEachBillDetail(req, res) {
+    const id = req.params.id;
+    billDetailModel
+      .getEachBillDetail(id)
+      .then((billDetail) => {
+        return res.status(200).json({
+          status: 200,
+          message: `Get detail bill id: ${id}`,
+          data: billDetail,
+        });
+      })
+      .catch((err) => {
+        return res.status(400).json({
+          status: 400,
+          message: `Failed to get bill detail id: ${id}`,
+          data: err,
+        });
+      });
+  },
+
   //thêm chi tiết hóa đơn
   addBillDetail(req, res) {
     const idUser = req.userData.id;

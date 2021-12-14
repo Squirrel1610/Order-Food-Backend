@@ -7,6 +7,15 @@ module.exports = {
     return data;
   },
 
+  //lấy chi tiết giỏ hàng
+  async getCartItem(id, idUser) {
+    let data = await knex("giohang").select("*").where({
+      id_nd: idUser,
+      id: id,
+    });
+    return data;
+  },
+
   //thêm sản phẩm vào giỏ hàng của khách hàng đăng nhập
   async addCartItem(cartItem) {
     //kiểm tra sản phẩm thêm vào giỏ hàng có bị trùng không
