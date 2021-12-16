@@ -13,6 +13,7 @@ const appInfoRouter = require("./routers/appInfoRouter.js");
 const paymentRouter = require("./routers/paymentRouter.js");
 const billRouter = require("./routers/billRouter.js");
 const billDetailRouter = require("./routers/billDetailRouter.js");
+const ratingRouter = require("./routers/ratingRouter.js");
 
 const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser");
@@ -48,28 +49,28 @@ app.get("/", (req, res) => {
 //cổng admin
 app.use("/admin/", adminRouter);
 
-//cổng customer
+//cổng khách hàng
 app.use("/customer/", customerRouter);
 
-//cổng category
+//cổng danh mục
 app.use("/category/", categoryRouter);
 
-//cổng product
+//cổng sản phẩm
 app.use("/product/", productRouter);
 
-//cổng cloudinary
+//cổng upload ảnh
 app.use("/cloud/", upload);
 
-//cổng cart
+//cổng giỏ hàng
 app.use("/cart/", cartRouter);
 
-//cổng address
+//cổng địa chỉ người dùng
 app.use("/address/", addressRouter);
 
-//cổng appInfo
+//cổng thông tin ứng dụng
 app.use("/appInfo/", appInfoRouter);
 
-//cổng payment
+//cổng thanh toán
 app.use("/payment/", paymentRouter);
 
 //cổng hóa đơn
@@ -77,6 +78,9 @@ app.use("/bill/", billRouter);
 
 //cổng chi tiết hóa đơn
 app.use("/billDetail", billDetailRouter);
+
+//cổng đánh giá
+app.use("/rating/", ratingRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
