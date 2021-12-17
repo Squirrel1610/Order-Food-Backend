@@ -74,14 +74,35 @@ module.exports = {
   },
 
   //DELETE (xóa mềm)
+  // deleteCategory(req, res) {
+  //   const id = req.params.id;
+  //   const category = {
+  //     updatedAt: new Date(),
+  //     deleted_fg: 1,
+  //   };
+  //   categoryModel
+  //     .deleteCategory(category, id)
+  //     .then((result) => {
+  //       return res.status(200).json({
+  //         status: 200,
+  //         msg: "Deleted category successfully",
+  //         data: result,
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       res.status(400).json({
+  //         status: 400,
+  //         msg: "Failed to delete category",
+  //         data: err,
+  //       });
+  //     });
+  // },
+
+  //xóa danh mục (xóa cứng)
   deleteCategory(req, res) {
     const id = req.params.id;
-    const category = {
-      updatedAt: new Date(),
-      deleted_fg: 1,
-    };
     categoryModel
-      .deleteCategory(category, id)
+      .deleteCategory(id)
       .then((result) => {
         return res.status(200).json({
           status: 200,

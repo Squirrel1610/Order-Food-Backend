@@ -110,15 +110,36 @@ module.exports = {
       });
   },
 
-  //xóa sản phẩm (xóa mềm)
+  // //xóa sản phẩm (xóa mềm)
+  // deleteProduct(req, res) {
+  //   const id = req.params.id;
+  //   const product = {
+  //     updatedAt: new Date(),
+  //     deleted_fg: 1,
+  //   };
+  //   productModel
+  //     .deleteProduct(product, id)
+  //     .then((result) => {
+  //       return res.status(200).json({
+  //         status: 200,
+  //         msg: "Deleted product successfully",
+  //         data: result,
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       res.status(400).json({
+  //         status: 400,
+  //         msg: "Failed to delete category",
+  //         data: err,
+  //       });
+  //     });
+  // },
+
+  //xóa sản phẩm (xóa cứng)
   deleteProduct(req, res) {
     const id = req.params.id;
-    const product = {
-      updatedAt: new Date(),
-      deleted_fg: 1,
-    };
     productModel
-      .deleteProduct(product, id)
+      .deleteProduct(id)
       .then((result) => {
         return res.status(200).json({
           status: 200,
