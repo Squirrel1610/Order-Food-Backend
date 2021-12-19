@@ -4,6 +4,9 @@ const checkAuth = require("../middleware/checkAuth.js");
 const billController = require("../controllers/billController.js");
 const billDetailController = require("../controllers/billDetailController.js");
 
+//xem hóa đơn toàn bộ khách hàng
+router.get("/all", checkAuth.checkAuthAdmin, billController.getAllBill);
+
 //xem toàn bộ hóa đơn của khách hàng đang đăng nhập
 router.get("/history", checkAuth.checkAuthCustomer, billController.history);
 

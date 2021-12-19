@@ -9,6 +9,12 @@ module.exports = {
     return bills;
   },
 
+  //xem hóa đơn của tất cả khách hàng (admin)
+  async getAllBill() {
+    let bills = await knex("hoadon").select("*");
+    return bills;
+  },
+
   //tạo hóa đơn (khách hàng)
   async createBill(bill) {
     let id_bill = await knex("hoadon").insert(bill).returning("id");
