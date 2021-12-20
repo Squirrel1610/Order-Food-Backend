@@ -3,8 +3,17 @@ const bcrypt = require("bcrypt");
 module.exports = {
   //đăng ký tài khoản với role admin
   registerAsAdmin(req, res) {
-    const { email, username, hoten, password, ngaysinh, gioitinh, dienthoai } =
-      req.body;
+    const {
+      email,
+      username,
+      hoten,
+      password,
+      ngaysinh,
+      gioitinh,
+      dienthoai,
+      public_id,
+      url,
+    } = req.body;
     if (password.length < 6) {
       return res.status(400).json({
         status: 400,
@@ -16,7 +25,7 @@ module.exports = {
       "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$"
     ).test(password);
     if (!reg) {
-      return res.status(400).json({
+      return res.json({
         status: 400,
         message:
           "Password must contain at least one number and one uppercase and lowercase and special letter, and at least 6 or more characters ",
@@ -32,6 +41,8 @@ module.exports = {
       ngaysinh: new Date(ngaysinh),
       gioitinh: gioitinh,
       dienthoai: dienthoai,
+      public_id: public_id,
+      url: url,
       admin: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -42,7 +53,7 @@ module.exports = {
         return res.status(200).json(msg);
       })
       .catch((err) => {
-        return res.status(400).json({
+        return res.json({
           status: 400,
           message: "Failed to register",
           data: err,
@@ -52,8 +63,17 @@ module.exports = {
 
   //đăng ký tài khoản với role customer
   registerAsCustomer(req, res) {
-    const { email, username, hoten, password, ngaysinh, gioitinh, dienthoai } =
-      req.body;
+    const {
+      email,
+      username,
+      hoten,
+      password,
+      ngaysinh,
+      gioitinh,
+      dienthoai,
+      public_id,
+      url,
+    } = req.body;
     if (password.length < 6) {
       return res.status(400).json({
         status: 400,
@@ -81,6 +101,8 @@ module.exports = {
       ngaysinh: new Date(ngaysinh),
       gioitinh: gioitinh,
       dienthoai: dienthoai,
+      public_id: public_id,
+      url: url,
       admin: 0,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -227,7 +249,16 @@ module.exports = {
 
   //chỉnh sửa toàn bộ tài khoản (admin)
   updateAllUser(req, res) {
-    const { username, hoten, ngaysinh, gioitinh, dienthoai, admin } = req.body;
+    const {
+      username,
+      hoten,
+      ngaysinh,
+      gioitinh,
+      dienthoai,
+      public_id,
+      url,
+      admin,
+    } = req.body;
 
     const id = req.params.id;
     const user = {
@@ -236,6 +267,8 @@ module.exports = {
       ngaysinh: new Date(ngaysinh),
       gioitinh: gioitinh,
       dienthoai: dienthoai,
+      public_id: public_id,
+      url: url,
       admin: admin,
       updatedAt: new Date(),
     };
@@ -298,7 +331,8 @@ module.exports = {
   updateProfile(req, res) {
     const userId = req.userData.id;
 
-    const { hoten, username, ngaysinh, gioitinh, dienthoai } = req.body;
+    const { hoten, username, ngaysinh, gioitinh, dienthoai, public_id, url } =
+      req.body;
 
     const user = {
       hoten: hoten,
@@ -306,6 +340,8 @@ module.exports = {
       ngaysinh: new Date(ngaysinh),
       gioitinh: gioitinh,
       dienthoai: dienthoai,
+      public_id: public_id,
+      url: url,
       updatedAt: new Date(),
     };
 
