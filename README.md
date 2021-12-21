@@ -31,6 +31,7 @@ NodeJS, ExpressJS, API
 
    - upload ảnh về sản phẩm (ảnh được lưu trong thư mục sản phẩm) : post --> http://localhost:5000/cloud/uploadProduct/admin
    - upload ảnh về hình thức thanh toán (ảnh được lưu trong thư mục payment) : post --> http://localhost:5000/cloud/uploadPayment/admin
+   - upload ảnh người dùng : post --> http://localhost:5000/cloud/uploadUserImage/admin
    - xóa ảnh trên cloud (xóa bằng public_id) : post --> http://localhost:5000/cloud/destroy/admin
 
    App info :
@@ -107,7 +108,8 @@ NodeJS, ExpressJS, API
 
    Upload :
 
-   - xóa ảnh đại diện người dùng trên cloud --> post --> http://localhost:5000/cloud/destroy/customer
+   - upload ảnh người dùng : post --> http://localhost:5000/cloud/uploadUserImage/customer
+   - xóa ảnh trên cloud (xóa bằng public_id) : post --> http://localhost:5000/cloud/destroy/customer
 
 3. API không có phân quyền
    Category :
@@ -129,7 +131,3 @@ NodeJS, ExpressJS, API
 
    - xem toàn bộ hình thức thanh toán : get --> http://localhost:5000/payment/
    - xem chi tiết hình thức thanh toán : get --> http://localhost:5000/payment/id
-
-   Upload :
-
-   - upload ảnh đại diện người dùng : post --> http://localhost:5000/cloud/uploadUserImage/

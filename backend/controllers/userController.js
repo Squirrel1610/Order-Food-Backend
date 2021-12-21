@@ -3,17 +3,8 @@ const bcrypt = require("bcrypt");
 module.exports = {
   //đăng ký tài khoản với role admin
   registerAsAdmin(req, res) {
-    const {
-      email,
-      username,
-      hoten,
-      password,
-      ngaysinh,
-      gioitinh,
-      dienthoai,
-      public_id,
-      url,
-    } = req.body;
+    const { email, username, hoten, password, ngaysinh, gioitinh, dienthoai } =
+      req.body;
     if (password.length < 6) {
       return res.status(400).json({
         status: 400,
@@ -41,8 +32,6 @@ module.exports = {
       ngaysinh: new Date(ngaysinh),
       gioitinh: gioitinh,
       dienthoai: dienthoai,
-      public_id: public_id,
-      url: url,
       admin: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -63,17 +52,8 @@ module.exports = {
 
   //đăng ký tài khoản với role customer
   registerAsCustomer(req, res) {
-    const {
-      email,
-      username,
-      hoten,
-      password,
-      ngaysinh,
-      gioitinh,
-      dienthoai,
-      public_id,
-      url,
-    } = req.body;
+    const { email, username, hoten, password, ngaysinh, gioitinh, dienthoai } =
+      req.body;
     if (password.length < 6) {
       return res.status(400).json({
         status: 400,
@@ -101,8 +81,6 @@ module.exports = {
       ngaysinh: new Date(ngaysinh),
       gioitinh: gioitinh,
       dienthoai: dienthoai,
-      public_id: public_id,
-      url: url,
       admin: 0,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -298,6 +276,17 @@ module.exports = {
         status: 400,
         message: "Password is at least 6 characters long.",
       });
+
+    let reg = new RegExp(
+      "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$"
+    ).test(password);
+    if (!reg) {
+      return res.json({
+        status: 400,
+        message:
+          "Password must contain at least one number and one uppercase and lowercase and special letter, and at least 6 or more characters ",
+      });
+    }
 
     if (confirmPassword !== password) {
       return res.status(400).json({
