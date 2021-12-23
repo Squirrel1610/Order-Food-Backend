@@ -5,7 +5,8 @@ NodeJS, ExpressJS, API
 1. API dành cho admin
    User :
 
-   - xem danh sách toàn bộ tài khoản : get -->http://localhost:5000/admin/users
+   - xem danh sách toàn bộ tài khoản admin : get -->http://localhost:5000/admin/adminAccount
+   - xem danh sách toàn bộ tài khoản khách hàng : get -->http://localhost:5000/admin/customerAccount
    - đăng ký tài khoản admin : post --> http://localhost:5000/admin/register
    - đăng nhập tài khoản admin : post --> http://localhost:5000/admin/login
    - refresh token admin : get --> http://localhost:5000/admin/refreshToken
@@ -14,6 +15,7 @@ NodeJS, ExpressJS, API
    - chỉnh sửa toàn bộ tài khoản : patch --> http://localhost:5000/admin/users/id_nd
    - đổi mật khẩu tài khoản admin đang đăng nhập : patch --> http://localhost:5000/admin/changePassword
    - xóa tài khoản : delete --> http://localhost:5000/admin/users/delete/id_nd
+   - quên mật khẩu tài khoản admin : post --> http://localhost:5000/admin/forgotPassword
 
    Category :
 
@@ -71,6 +73,7 @@ NodeJS, ExpressJS, API
    - xem thông tin tài khoản khách hàng đang đăng nhập : get --> http://localhost:5000/customer/profile
    - chỉnh sửa thông tin tài khoản khách hàng : patch --> http://localhost:5000/customer/updateProfile
    - đổi mật khẩu tài khoản khách hàng : patch --> http://localhost:5000/customer/changePassword
+   - quên mật khẩu tài khoản khách hàng : post --> http://localhost:5000/customer/forgotPassword
 
    Cart :
 
