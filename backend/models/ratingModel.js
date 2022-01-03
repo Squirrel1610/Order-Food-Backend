@@ -9,6 +9,7 @@ module.exports = {
       .select(
         "danhgia.id",
         "danhgia.id_hd",
+        "nguoidung.url",
         "nguoidung.hoten",
         "danhgia.diem_danhgia",
         "danhgia.binhluan",

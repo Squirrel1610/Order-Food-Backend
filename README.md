@@ -53,6 +53,7 @@ NodeJS, ExpressJS, API
    - xem hóa đơn của toàn bộ khách hàng : get -->http://localhost:5000/bill/all
    - chỉnh sửa tình trạng hóa đơn : patch --> http://localhost:5000/bill/update/id_hd
    - xóa hóa đơn -> xóa toàn bộ chi tiết hóa đơn theo id hóa đơn : delete --> http://localhost:5000/bill/delete/id_hd
+   - sắp xếp tổng giao dịch của khách hàng đã thanh toán hoặc đã nhận hàng (trên 1 triệu) : get -->http://localhost:5000/bill/sortTransaction
 
    Bill Detail :
 
@@ -79,6 +80,7 @@ NodeJS, ExpressJS, API
 
    - Thêm sản phẩm vào giỏ hàng : post --> http://localhost:5000/cart/addCartItem/id_sp
    - Xem giỏ hàng của tài khoản khách hàng đang đăng nhập : get --> http://localhost:5000/cart
+   - Hiển thị tổng số lượng sản phẩm và tổng tiền của giỏ hàng : get --> http://localhost:5000/cart/getAllQuantityAndPriceOfCart
    - Xem chi tiết giỏ hàng : get --> http://localhost:5000/cart/item/id_cart
    - chỉnh sửa số lượng sản phẩm trong giỏ hàng : patch --> http://localhost:5000/cart/updateQuantityProduct/id_cart
    - xóa chi tiết giỏ hàng : delete --> http://localhost:5000/cart/delete/id_cart
@@ -98,6 +100,7 @@ NodeJS, ExpressJS, API
    - xem lịch sử đặt hàng của tài khoản khách hàng đang đăng nhập : get --> http://localhost:5000/bill/history
    - xem hóa đơn : get --> http://localhost:5000/bill/detail/id_hd
    - hủy bill (khi hóa đơn của khách hàng chưa thanh toán ) : patch --> http://localhost:5000/bill/cancel/id_hd
+   - Kiểm tra mã voucher hợp lệ hay không : get --> http://localhost:5000/voucher/check
 
    Bill Detail :
 
