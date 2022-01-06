@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController.js");
 const checkAuth = require("../middleware/checkAuth.js");
+const billController = require("../controllers/billController.js");
 
 //lấy tất cả thông tin tài khoản admin
 router.get(
@@ -58,5 +59,12 @@ router.post("/forgotPassword", userController.forgotPasswordAdmin);
 
 //hiển thị tài khoản đăng ký từ 3 ngày trước đến hiện tại
 router.get("/newUser", checkAuth.checkAuthAdmin, userController.getNewUser);
+
+//tổng đoanh thu
+router.get(
+  "/totalRevenue",
+  checkAuth.checkAuthAdmin,
+  billController.getTotalRevenue
+);
 
 module.exports = router;

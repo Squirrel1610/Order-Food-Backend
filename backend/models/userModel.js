@@ -534,7 +534,7 @@ module.exports = {
       return Math.floor((ms2 - ms1) / (24 * 60 * 60 * 1000));
     };
 
-    let ds_nd = await knex("nguoidung").select("*");
+    let ds_nd = await knex("nguoidung").select("*").where("admin", 0);
 
     var today = new Date();
 
