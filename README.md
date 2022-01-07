@@ -22,6 +22,7 @@ NodeJS, ExpressJS, API
    - hiển thị tổng hóa đơn khách hàng chưa nhận được sản phẩm : get --> http://localhost:5000/admin/totalBillCustomerNotReceived
    - hiển thị tổng hóa đơn khách hàng đã hủy: get --> http://localhost:5000/admin/totalBillCancelled
    - hiển thị doanh thu theo tháng : get --> http://localhost:5000/admin/revenueByMonth
+   - thống kê hóa đơn từ ngày ... đến ngày ... : get --> http://localhost:5000/admin/statisticBillByDay
 
    Category :
 
@@ -88,6 +89,7 @@ NodeJS, ExpressJS, API
    - chỉnh sửa thông tin tài khoản khách hàng : patch --> http://localhost:5000/customer/updateProfile
    - đổi mật khẩu tài khoản khách hàng : patch --> http://localhost:5000/customer/changePassword
    - quên mật khẩu tài khoản khách hàng : post --> http://localhost:5000/customer/forgotPassword
+   - đăng nhập bằng google : get --> http://localhost:5000/auth/google
 
    Cart :
 
@@ -139,6 +141,8 @@ NodeJS, ExpressJS, API
    Product:
 
    - Xem toàn bộ sản phẩm : get --> http://localhost:5000/product
+   - sắp xếp sản phẩm tăng dần theo giá --> http://localhost:5000/product/sort/asc
+   - sắp xếp sản phẩm giảm dần theo giá --> http://localhost:5000/product/sort/desc
    - xem chi tiết sản phẩm : get --> http://localhost:5000/product/id_sp
 
    App info:
