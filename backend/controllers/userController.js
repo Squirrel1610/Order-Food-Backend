@@ -408,7 +408,7 @@ module.exports = {
         return res.status(400).json({
           status: 400,
           message: "Failed to handle forgot password",
-          data: err,
+          data: err.message,
         });
       });
   },
@@ -425,7 +425,7 @@ module.exports = {
         return res.status(400).json({
           status: 400,
           message: "Failed to handle forgot password",
-          data: err,
+          data: err.message,
         });
       });
   },

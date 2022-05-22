@@ -339,8 +339,8 @@ module.exports = {
       var transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-          user: "slthinhtu2@gmail.com",
-          pass: "lhehdoqwrfmgyxzx",
+          user: "nguyentientai10@gmail.com",
+          pass: "gdvjyxpfixzopsht",
         },
       });
 
@@ -460,8 +460,8 @@ module.exports = {
       var transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-          user: "slthinhtu2@gmail.com",
-          pass: "lhehdoqwrfmgyxzx",
+          user: "nguyentientai10@gmail.com",
+          pass: "gdvjyxpfixzopsht",
         },
       });
 
